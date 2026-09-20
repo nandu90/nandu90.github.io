@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Two-phase CFD Visualizations</title>
+  <title>NekRS-LS Multiphase Visualizations</title>
   <style>
     body {
       background-color: #111;
@@ -10,6 +10,10 @@
       text-align: center;
       margin: 0;
       padding: 40px;
+    }
+
+    section {
+      margin-bottom: 60px;
     }
 
     video {
@@ -23,15 +27,38 @@
 
 <body>
 
-<h1>Bubbly Flow Simulation with NekRS</h1>
+<h1>NekRS-LS Multiphase Visualizations</h1>
 
-<video controls autoplay loop muted>
-  <source src="bubblyFlow/bubbly.mp4" type="video/mp4">
-</video>
+<section>
+  <h2>Turbulent bubbly channel flow</h2>
 
-<p>
-Interface-resolved bubbly flow simulation using NekRS.
-</p>
+  <video controls autoplay loop muted>
+    <source src="bubblyFlow/bubbly.mp4" type="video/mp4">
+  </video>
+
+  <p>
+    Re<sub>&tau;</sub> &approx; 280,
+    &rho;<sub>r</sub> = 40,
+    &mu;<sub>r</sub> &approx; 6,
+    We &approx; 17, and
+    Fr &approx; 4.
+  </p>
+</section>
+
+<section>
+  <h2>Growth &amp; decay of two-phase homogeneous isotropic turbulence</h2>
+
+  <video controls autoplay loop muted>
+    <source src="HIT/growth_decay.mp4" type="video/mp4">
+  </video>
+
+  <p>
+    Re<sub>&lambda;</sub> &approx; 85,
+    We &approx; 20,
+    &rho;<sub>r</sub> = 1, and
+    &mu;<sub>r</sub> = 1.
+  </p>
+</section>
 
 </body>
 </html>
