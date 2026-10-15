@@ -1,64 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>NekRS-LS Multiphase Visualizations</title>
-  <style>
-    body {
-      background-color: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 40px;
-    }
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Nadish Saini | NekRS-LS Multiphase Visualizations</title>
+ <meta name="description" content="NekRS-LS multiphase flow visualizations, references, and source code from Nadish Saini, nuclear engineer at Argonne National Laboratory.">
+ <link rel="canonical" href="https://nandu90.github.io/">
+<style>
+#nekrs-design { --ns-bg:#14181D;--ns-side:#1B2027;--ns-text:#E8EDF2;--ns-muted:#A6B0BC;--ns-line:#303944;--ns-active:#2B3541;background:var(--ns-bg);color:var(--ns-text);font-family:Arial,sans-serif;min-height:100vh; }
+#nekrs-design * {box-sizing:border-box}
+#nekrs-design .ns-shell {display:grid;grid-template-columns:225px minmax(0,1fr);min-height:100vh}
+#nekrs-design aside {background:var(--ns-side);border-right:1px solid var(--ns-line);padding:34px 20px;display:flex;flex-direction:column}
+#nekrs-design .ns-name {font-size:20px;font-weight:500;margin-bottom:8px}
+#nekrs-design .ns-affiliation {color:var(--ns-muted);font-size:12px;line-height:1.7}
+#nekrs-design .ns-wordmark {margin:32px 0 15px;letter-spacing:2px;font-size:12px;color:var(--ns-muted)}
+#nekrs-design nav {display:grid;gap:8px}
+#nekrs-design nav button {font:inherit;font-size:14px;display:flex;gap:12px;align-items:center;padding:13px 12px;border:0;border-radius:7px;background:transparent;color:var(--ns-muted);text-align:left;min-height:44px}
+#nekrs-design nav button[aria-pressed=true] {background:var(--ns-active);color:var(--ns-text)}
+#nekrs-design nav svg {width:17px;height:17px}
+#nekrs-design .ns-foot {margin-top:auto;padding-top:50px;color:var(--ns-muted);font-size:12px;line-height:1.7}
+#nekrs-design main {padding:38px 36px;min-width:0}
+#nekrs-design .ns-eyebrow {color:var(--ns-muted);font-size:12px;letter-spacing:1.6px;margin-bottom:12px}
+#nekrs-design h1 {font-size:28px;font-weight:500;line-height:1.2;margin:0 0 12px}
+#nekrs-design .ns-intro {font-size:14px;color:var(--ns-muted);line-height:1.7;margin:0 0 30px;max-width:610px}
+#nekrs-design h2 {font-size:17px;line-height:1.5;font-weight:500;margin:0 0 14px}
+#nekrs-design .ns-case {margin-bottom:28px}
+#nekrs-design .ns-video {height:176px;background:light-dark(#e7e9ec,#1c2025);border:1px solid var(--ns-line);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;color:var(--ns-muted);font-size:13px;position:relative;overflow:hidden}
+#nekrs-design .ns-video i {width:25px;height:25px}
+#nekrs-design .ns-bar {position:absolute;bottom:13px;left:16px;right:16px;border-top:2px solid var(--ns-muted);opacity:.35}
+#nekrs-design .ns-params {font-size:12px;line-height:1.7;color:var(--ns-muted);margin:11px 0 0}
+#nekrs-design .ns-entry {padding:22px 0;border-top:1px solid var(--ns-line)}
+#nekrs-design .ns-entry p {font-size:14px;line-height:1.7;color:var(--ns-muted);margin:8px 0 14px}
+#nekrs-design a {color:var(--ns-text);font-size:14px;text-underline-offset:4px;overflow-wrap:anywhere}
+#nekrs-design [hidden] {display:none!important}
+@media(max-width:620px){#nekrs-design .ns-shell{grid-template-columns:1fr;min-height:0}#nekrs-design aside{padding:22px;border-right:0;border-bottom:1px solid var(--ns-line)}#nekrs-design .ns-wordmark,#nekrs-design .ns-foot{display:none}#nekrs-design nav{display:flex;flex-wrap:wrap;margin-top:20px;gap:4px}#nekrs-design nav button{padding:10px;font-size:12px;gap:6px}#nekrs-design main{padding:28px 22px}#nekrs-design h1{font-size:24px}}
 
-    section {
-      margin-bottom: 60px;
-    }
-
-    video {
-      width: 90%;
-      max-width: 1200px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-    }
-  </style>
+body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
+#nekrs-design main {width:100%;max-width:1320px;padding:44px clamp(22px,4vw,64px)}
+#nekrs-design aside {position:sticky;top:0;height:100vh}
+#nekrs-design nav button {cursor:pointer}
+#nekrs-design nav button:hover {background:#242D37;color:#E8EDF2}
+#nekrs-design nav button[aria-pressed=true] {color:#86B7E0}
+#nekrs-design a {color:#86B7E0}
+#nekrs-design video {display:block;width:100%;height:auto;border-radius:8px;background:#101419}
+#nekrs-design .ns-case {margin-bottom:38px}
+#nekrs-design .ns-shell {max-width:1800px;margin:auto}
+@media(max-width:620px){#nekrs-design aside{position:static;height:auto}#nekrs-design .ns-shell{min-height:100vh}}
+</style>
 </head>
-
 <body>
-
-<h1>NekRS-LS Multiphase Visualizations</h1>
-
-<section>
-  <h2>Turbulent bubbly channel flow</h2>
-
-  <video controls autoplay loop muted>
-    <source src="bubblyFlow/bubbly.mp4" type="video/mp4">
-  </video>
-
-  <p>
-    Re<sub>&tau;</sub> &approx; 280,
-    &rho;<sub>r</sub> = 40,
-    &mu;<sub>r</sub> &approx; 6,
-    We &approx; 17, and
-    Fr &approx; 4.
-  </p>
-</section>
-
-<section>
-  <h2>Growth &amp; decay of two-phase homogeneous isotropic turbulence</h2>
-
-  <video controls autoplay loop muted>
-    <source src="HIT/growth_decay.mp4" type="video/mp4">
-  </video>
-
-  <p>
-    Re<sub>&lambda;</sub> &approx; 85,
-    We &approx; 20,
-    &rho;<sub>r</sub> = 1, and
-    &mu;<sub>r</sub> = 1.
-  </p>
-</section>
-
+<div id="nekrs-design">
+ <div class="ns-shell">
+  <aside>
+   <div class="ns-name">Nadish Saini</div>
+   <div class="ns-affiliation">Nuclear Engineer<br>Argonne National Laboratory</div>
+   <div class="ns-wordmark">NEKRS-LS</div>
+   <nav aria-label="Research navigation">
+    <button type="button" data-view="visualizations" aria-pressed="true" aria-controls="ns-visualizations"><span aria-hidden="true">▷</span>Visualizations</button>
+    <button type="button" data-view="references" aria-pressed="false" aria-controls="ns-references"><span aria-hidden="true">☷</span>References</button>
+    <button type="button" data-view="source" aria-pressed="false" aria-controls="ns-source"><span aria-hidden="true">&lt;/&gt;</span>Source Code</button>
+   </nav>
+   <div class="ns-foot">High-order CFD<br>GPU computing · Multiphase flow</div>
+  </aside>
+  <main aria-live="polite">
+   <section id="ns-visualizations">
+    <div class="ns-eyebrow">NEKRS-LS / VISUALIZATIONS</div>
+    <h1>Multiphase visualizations</h1>
+    <p class="ns-intro">High-order simulations of two-phase flows using NekRS-LS.</p>
+    <div class="ns-case">
+     <h2>Turbulent bubbly channel flow</h2>
+     <video controls autoplay loop muted playsinline preload="metadata" aria-label="Turbulent bubbly channel flow"><source src="bubblyFlow/bubbly.mp4" type="video/mp4">Your browser does not support embedded video. <a href="bubblyFlow/bubbly.mp4">Download video</a>.</video>
+     <p class="ns-params">Re<sub>τ</sub> ≈ 280 &nbsp; · &nbsp; ρ<sub>r</sub> = 40 &nbsp; · &nbsp; μ<sub>r</sub> ≈ 6 &nbsp; · &nbsp; We ≈ 17 &nbsp; · &nbsp; Fr ≈ 4</p>
+    </div>
+    <div class="ns-case">
+     <h2>Growth &amp; decay of two-phase homogeneous isotropic turbulence</h2>
+     <video controls autoplay loop muted playsinline preload="metadata" aria-label="Growth and decay of two-phase homogeneous isotropic turbulence"><source src="HIT/growth_decay.mp4" type="video/mp4">Your browser does not support embedded video. <a href="HIT/growth_decay.mp4">Download video</a>.</video>
+     <p class="ns-params">Re<sub>λ</sub> ≈ 85 &nbsp; · &nbsp; We ≈ 20 &nbsp; · &nbsp; ρ<sub>r</sub> = 1 &nbsp; · &nbsp; μ<sub>r</sub> = 1</p>
+    </div>
+   </section>
+   <section id="ns-references">
+    <div class="ns-eyebrow">NEKRS-LS / REFERENCES</div>
+    <h1>References</h1>
+    <p class="ns-intro">Publications describing the numerical methods behind these simulations.</p>
+    <div class="ns-entry"><h2>Conservative level-set formulation</h2><p>Journal of Computational Physics · 2026</p><a href="https://doi.org/10.1016/j.jcp.2026.114961" target="_blank" rel="noopener noreferrer">Read the method paper ↗</a></div>
+   </section>
+   <section id="ns-source">
+    <div class="ns-eyebrow">NEKRS-LS / SOURCE CODE</div>
+    <h1>Source Code</h1>
+    <p class="ns-intro">Explore the solver and the source for this website.</p>
+    <div class="ns-entry"><h2>NekRS-LS</h2><p>GPU-accelerated multiphase flow simulation.</p><a href="https://github.com/nandu90/nekRS-LS" target="_blank" rel="noopener noreferrer">View solver on GitHub ↗</a></div>
+    <div class="ns-entry"><h2>Visualization website</h2><p>Website source and simulation videos.</p><a href="https://github.com/nandu90/nandu90.github.io" target="_blank" rel="noopener noreferrer">View website repository ↗</a></div>
+   </section>
+  </main>
+ </div>
+</div>
+<script>
+(() => {
+ const root = document.getElementById('nekrs-design');
+ const buttons = root.querySelectorAll('button[data-view]');
+ const sections = root.querySelectorAll('main > section');
+ function show(view) {
+  const selected = Array.from(buttons).find(button => button.dataset.view === view) || buttons[0];
+  buttons.forEach(button => button.setAttribute('aria-pressed', String(button === selected)));
+  sections.forEach(section => {
+   section.hidden = section.id !== selected.getAttribute('aria-controls');
+   section.querySelectorAll('video').forEach(video => {
+    if (section.hidden) video.pause();
+    else { const playing = video.play(); if (playing) playing.catch(() => {}); }
+   });
+  });
+ }
+ buttons.forEach(button => button.addEventListener('click', () => {
+  window.location.hash = button.dataset.view;
+  show(button.dataset.view);
+ }));
+ window.addEventListener('hashchange', () => show(window.location.hash.slice(1)));
+ show(window.location.hash.slice(1));
+})();
+</script>
 </body>
 </html>
