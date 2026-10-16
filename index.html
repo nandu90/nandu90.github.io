@@ -46,6 +46,16 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
 #nekrs-design .ns-case {margin-bottom:38px}
 #nekrs-design .ns-shell {max-width:1800px;margin:auto}
 @media(max-width:620px){#nekrs-design aside{position:static;height:auto}#nekrs-design .ns-shell{min-height:100vh}}
+#nekrs-design .ns-nav-list {list-style:none;margin:0;padding:0;display:grid;gap:8px}
+#nekrs-design .ns-nav-list > li > button {width:100%}
+#nekrs-design .ns-simulations {list-style:none;margin:6px 0 10px 20px;padding:0 0 0 14px;border-left:1px solid var(--ns-line)}
+#nekrs-design .ns-simulations a {display:block;padding:9px 0;font-size:12px;line-height:1.6;text-decoration:none;color:var(--ns-muted)}
+#nekrs-design .ns-simulations a:hover,#nekrs-design .ns-simulations a[aria-current] {color:#86B7E0}
+#nekrs-design .ns-case {scroll-margin-top:24px}
+#nekrs-design .ns-reference-list {list-style:none;counter-reset:reference;margin:28px 0 0;padding:0}
+#nekrs-design .ns-reference-list li {counter-increment:reference;position:relative;padding:0 0 24px 34px;margin-bottom:24px;border-bottom:1px solid var(--ns-line);font-size:14px;line-height:1.9;overflow-wrap:anywhere}
+#nekrs-design .ns-reference-list li::before {content:"[" counter(reference) "]";position:absolute;left:0;color:var(--ns-muted)}
+@media(max-width:620px){#nekrs-design nav {display:block}#nekrs-design .ns-nav-list {grid-template-columns:1fr}#nekrs-design .ns-simulations a {min-height:44px;display:flex;align-items:center}}
 </style>
 </head>
 <body>
@@ -56,9 +66,17 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
    <div class="ns-affiliation">Nuclear Engineer<br>Argonne National Laboratory</div>
    <div class="ns-wordmark">NEKRS-LS</div>
    <nav aria-label="Research navigation">
-    <button type="button" data-view="visualizations" aria-pressed="true" aria-controls="ns-visualizations"><span aria-hidden="true">▷</span>Visualizations</button>
-    <button type="button" data-view="references" aria-pressed="false" aria-controls="ns-references"><span aria-hidden="true">☷</span>References</button>
-    <button type="button" data-view="source" aria-pressed="false" aria-controls="ns-source"><span aria-hidden="true">&lt;/&gt;</span>Source Code</button>
+    <ul class="ns-nav-list">
+     <li>
+      <button type="button" data-view="visualizations" aria-pressed="true" aria-controls="ns-visualizations"><span aria-hidden="true">▷</span>Visualizations</button>
+      <ul class="ns-simulations" aria-label="Simulations">
+       <li><a href="#channel-bubbly-flow" data-simulation="channel-bubbly-flow">Turbulent channel bubbly flow</a></li>
+       <li><a href="#two-phase-hit" data-simulation="two-phase-hit">Two-phase HIT</a></li>
+      </ul>
+     </li>
+     <li><button type="button" data-view="references" aria-pressed="false" aria-controls="ns-references"><span aria-hidden="true">☷</span>References</button></li>
+     <li><button type="button" data-view="source" aria-pressed="false" aria-controls="ns-source"><span aria-hidden="true">&lt;/&gt;</span>Source Code</button></li>
+    </ul>
    </nav>
    <div class="ns-foot">High-order CFD<br>GPU computing · Multiphase flow</div>
   </aside>
@@ -67,12 +85,12 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
     <div class="ns-eyebrow">NEKRS-LS / VISUALIZATIONS</div>
     <h1>Multiphase visualizations</h1>
     <p class="ns-intro">High-order simulations of two-phase flows using NekRS-LS.</p>
-    <div class="ns-case">
+    <div class="ns-case" id="channel-bubbly-flow">
      <h2>Turbulent bubbly channel flow</h2>
      <video controls autoplay loop muted playsinline preload="metadata" aria-label="Turbulent bubbly channel flow"><source src="bubblyFlow/bubbly.mp4" type="video/mp4">Your browser does not support embedded video. <a href="bubblyFlow/bubbly.mp4">Download video</a>.</video>
      <p class="ns-params">Re<sub>τ</sub> ≈ 280 &nbsp; · &nbsp; ρ<sub>r</sub> = 40 &nbsp; · &nbsp; μ<sub>r</sub> ≈ 6 &nbsp; · &nbsp; We ≈ 17 &nbsp; · &nbsp; Fr ≈ 4</p>
     </div>
-    <div class="ns-case">
+    <div class="ns-case" id="two-phase-hit">
      <h2>Growth &amp; decay of two-phase homogeneous isotropic turbulence</h2>
      <video controls autoplay loop muted playsinline preload="metadata" aria-label="Growth and decay of two-phase homogeneous isotropic turbulence"><source src="HIT/growth_decay.mp4" type="video/mp4">Your browser does not support embedded video. <a href="HIT/growth_decay.mp4">Download video</a>.</video>
      <p class="ns-params">Re<sub>λ</sub> ≈ 85 &nbsp; · &nbsp; We ≈ 20 &nbsp; · &nbsp; ρ<sub>r</sub> = 1 &nbsp; · &nbsp; μ<sub>r</sub> = 1</p>
@@ -81,8 +99,10 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
    <section id="ns-references">
     <div class="ns-eyebrow">NEKRS-LS / REFERENCES</div>
     <h1>References</h1>
-    <p class="ns-intro">Publications describing the numerical methods behind these simulations.</p>
-    <div class="ns-entry"><h2>Conservative level-set formulation</h2><p>Journal of Computational Physics · 2026</p><a href="https://doi.org/10.1016/j.jcp.2026.114961" target="_blank" rel="noopener noreferrer">Read the method paper ↗</a></div>
+    <ol class="ns-reference-list">
+     <li>Saini, N., Tomboulides, A., Shaver, D. R., Fischer, P. F., Merzari, E., Obabko, A. V., &amp; Guillen, D. P. (2026). A high order continuous Galerkin spectrally stabilized level-set approach for incompressible two-phase flows. <em>Journal of Computational Physics, 561</em>, Article 114961. <a href="https://doi.org/10.1016/j.jcp.2026.114961" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.jcp.2026.114961</a></li>
+     <li>Saini, N., &amp; Balakrishnan, R. (2026). <em>GPU accelerated spectral element simulations of single and two-phase forced isotropic turbulence</em> (ANL/NSE-26/74). Argonne National Laboratory. <a href="https://doi.org/10.2172/17032787" target="_blank" rel="noopener noreferrer">https://doi.org/10.2172/17032787</a></li>
+    </ol>
    </section>
    <section id="ns-source">
     <div class="ns-eyebrow">NEKRS-LS / SOURCE CODE</div>
@@ -100,7 +120,9 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
  const buttons = root.querySelectorAll('button[data-view]');
  const sections = root.querySelectorAll('main > section');
  function show(view) {
-  const selected = Array.from(buttons).find(button => button.dataset.view === view) || buttons[0];
+  const simulation = root.querySelector('[data-simulation="' + CSS.escape(view) + '"]');
+  const targetView = simulation ? 'visualizations' : view;
+  const selected = Array.from(buttons).find(button => button.dataset.view === targetView) || buttons[0];
   buttons.forEach(button => button.setAttribute('aria-pressed', String(button === selected)));
   sections.forEach(section => {
    section.hidden = section.id !== selected.getAttribute('aria-controls');
@@ -109,7 +131,13 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
     else { const playing = video.play(); if (playing) playing.catch(() => {}); }
    });
   });
+  root.querySelectorAll('[data-simulation]').forEach(link => {
+   if (link === simulation) link.setAttribute('aria-current', 'location');
+   else link.removeAttribute('aria-current');
+  });
+  if (simulation) requestAnimationFrame(() => document.getElementById(view).scrollIntoView({block:'start'}));
  }
+ root.querySelectorAll('[data-simulation]').forEach(link => link.addEventListener('click', () => show(link.dataset.simulation)));
  buttons.forEach(button => button.addEventListener('click', () => {
   window.location.hash = button.dataset.view;
   show(button.dataset.view);
