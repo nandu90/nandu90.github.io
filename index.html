@@ -102,13 +102,13 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
     <p class="ns-intro">High-order simulations of two-phase flows using NekRS-LS.</p>
     <div class="ns-case" id="channel-bubbly-flow">
      <h2>Turbulent bubbly channel flow</h2>
-     <video controls autoplay loop muted playsinline preload="metadata" aria-label="Turbulent bubbly channel flow"><source src="bubblyFlow/bubbly.mp4" type="video/mp4">Your browser does not support embedded video. <a href="bubblyFlow/bubbly.mp4">Download video</a>.</video>
+     <video controls loop muted playsinline preload="metadata" aria-label="Turbulent bubbly channel flow"><source src="bubblyFlow/bubbly.mp4" type="video/mp4">Your browser does not support embedded video. <a href="bubblyFlow/bubbly.mp4">Download video</a>.</video>
      <p class="ns-params"><span>Re<sub>τ</sub> ≈ 280</span><span class="ns-param-dot" aria-hidden="true">·</span><span>ρ<sub>r</sub> = 40</span><span class="ns-param-dot" aria-hidden="true">·</span><span>μ<sub>r</sub> ≈ 6</span><span class="ns-param-dot" aria-hidden="true">·</span><span>We ≈ 17</span><span class="ns-param-dot" aria-hidden="true">·</span><span>Fr ≈ 4</span></p>
     </div>
     <hr class="ns-case-divider">
     <div class="ns-case" id="two-phase-hit">
      <h2>Growth &amp; decay of two-phase homogeneous isotropic turbulence</h2>
-     <video controls autoplay loop muted playsinline preload="metadata" aria-label="Growth and decay of two-phase homogeneous isotropic turbulence"><source src="HIT/growth_decay.mp4" type="video/mp4">Your browser does not support embedded video. <a href="HIT/growth_decay.mp4">Download video</a>.</video>
+     <video controls loop muted playsinline preload="metadata" aria-label="Growth and decay of two-phase homogeneous isotropic turbulence"><source src="HIT/growth_decay.mp4" type="video/mp4">Your browser does not support embedded video. <a href="HIT/growth_decay.mp4">Download video</a>.</video>
      <p class="ns-params"><span>Re<sub>λ</sub> ≈ 85</span><span class="ns-param-dot" aria-hidden="true">·</span><span>We ≈ 20</span><span class="ns-param-dot" aria-hidden="true">·</span><span>ρ<sub>r</sub> = 1</span><span class="ns-param-dot" aria-hidden="true">·</span><span>μ<sub>r</sub> = 1</span> <a href="#ref-hit-report" data-cite="hit-report" aria-label="View HIT report reference">Reference</a></p>
     </div>
    </section>
@@ -128,6 +128,42 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
  const root = document.getElementById('nekrs-design');
  const buttons = root.querySelectorAll('button[data-view]');
  const sections = root.querySelectorAll('main > section');
+ const videos = Array.from(root.querySelectorAll('video'));
+ const visibility = new Map();
+ let activeVideo = null;
+ function syncPlayback() {
+  let nextVideo = null;
+  let largestVisibleArea = 0;
+  if (!document.hidden) {
+   videos.forEach(video => {
+    const entry = visibility.get(video);
+    if (!entry || !entry.isIntersecting || video.closest('section').hidden) return;
+    const visibleArea = entry.intersectionRect.width * entry.intersectionRect.height;
+    const availableArea = Math.min(entry.boundingClientRect.width, window.innerWidth) *
+                          Math.min(entry.boundingClientRect.height, window.innerHeight);
+    if (availableArea > 0 && visibleArea / availableArea >= 0.35 && visibleArea > largestVisibleArea) {
+     nextVideo = video;
+     largestVisibleArea = visibleArea;
+    }
+   });
+  }
+  videos.forEach(video => { if (video !== nextVideo) video.pause(); });
+  if (nextVideo !== activeVideo) {
+   activeVideo = nextVideo;
+   if (activeVideo) {
+    const playing = activeVideo.play();
+    if (playing) playing.catch(() => {});
+   }
+  }
+ }
+ if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+   entries.forEach(entry => visibility.set(entry.target, entry));
+   syncPlayback();
+  }, {threshold: Array.from({length:21}, (_, index) => index / 20)});
+  videos.forEach(video => observer.observe(video));
+ }
+ document.addEventListener('visibilitychange', syncPlayback);
  const references = Array.from(root.querySelectorAll('.ns-reference-list [data-reference]'));
  root.querySelectorAll('[data-cite]').forEach(link => {
   const index = references.findIndex(reference => reference.dataset.reference === link.dataset.cite);
@@ -144,11 +180,9 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
   buttons.forEach(button => button.setAttribute('aria-pressed', String(button === selected)));
   sections.forEach(section => {
    section.hidden = section.id !== selected.getAttribute('aria-controls');
-   section.querySelectorAll('video').forEach(video => {
-    if (section.hidden) video.pause();
-    else { const playing = video.play(); if (playing) playing.catch(() => {}); }
-   });
+
   });
+  syncPlayback();
   root.querySelectorAll('[data-simulation]').forEach(link => {
    if (link === simulation) link.setAttribute('aria-current', 'location');
    else link.removeAttribute('aria-current');
