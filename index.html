@@ -59,6 +59,18 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
 #nekrs-design nav .ns-source-link {display:flex;align-items:center;gap:12px;padding:13px 12px;min-height:44px;border-radius:7px;color:var(--ns-muted);font-size:14px;text-decoration:none}
 #nekrs-design nav .ns-source-link:hover {background:#242D37;color:#E8EDF2}
 @media(max-width:620px){#nekrs-design nav .ns-source-link {padding:10px;font-size:12px;gap:6px}}
+#nekrs-design .ns-case {margin-bottom:0}
+#nekrs-design .ns-case h2 {font-size:20px;margin-bottom:18px}
+#nekrs-design video {border:1px solid #35414e;box-sizing:border-box}
+#nekrs-design .ns-params {display:flex;align-items:baseline;flex-wrap:wrap;gap:10px 18px;font-size:17px;line-height:1.8;color:#d2dbe5;margin:17px 0 0}
+#nekrs-design .ns-params > span {white-space:nowrap}
+#nekrs-design .ns-param-dot {color:#647789}
+#nekrs-design .ns-params a {font:inherit;text-decoration:none;padding:0 3px}
+#nekrs-design .ns-params a:hover {text-decoration:underline}
+#nekrs-design .ns-case-divider {height:1px;border:0;background:#405164;margin:48px 0 40px}
+#nekrs-design .ns-reference-list li {scroll-margin-top:24px}
+#nekrs-design .ns-reference-list li.ns-reference-selected {border-left:2px solid #86b7e0;background:#1b2530}
+@media(max-width:450px){#nekrs-design .ns-case h2{font-size:18px}#nekrs-design .ns-params{font-size:16px;gap:6px 12px}}
 </style>
 </head>
 <body>
@@ -91,20 +103,21 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
     <div class="ns-case" id="channel-bubbly-flow">
      <h2>Turbulent bubbly channel flow</h2>
      <video controls autoplay loop muted playsinline preload="metadata" aria-label="Turbulent bubbly channel flow"><source src="bubblyFlow/bubbly.mp4" type="video/mp4">Your browser does not support embedded video. <a href="bubblyFlow/bubbly.mp4">Download video</a>.</video>
-     <p class="ns-params">Re<sub>τ</sub> ≈ 280 &nbsp; · &nbsp; ρ<sub>r</sub> = 40 &nbsp; · &nbsp; μ<sub>r</sub> ≈ 6 &nbsp; · &nbsp; We ≈ 17 &nbsp; · &nbsp; Fr ≈ 4</p>
+     <p class="ns-params"><span>Re<sub>τ</sub> ≈ 280</span><span class="ns-param-dot" aria-hidden="true">·</span><span>ρ<sub>r</sub> = 40</span><span class="ns-param-dot" aria-hidden="true">·</span><span>μ<sub>r</sub> ≈ 6</span><span class="ns-param-dot" aria-hidden="true">·</span><span>We ≈ 17</span><span class="ns-param-dot" aria-hidden="true">·</span><span>Fr ≈ 4</span></p>
     </div>
+    <hr class="ns-case-divider">
     <div class="ns-case" id="two-phase-hit">
      <h2>Growth &amp; decay of two-phase homogeneous isotropic turbulence</h2>
      <video controls autoplay loop muted playsinline preload="metadata" aria-label="Growth and decay of two-phase homogeneous isotropic turbulence"><source src="HIT/growth_decay.mp4" type="video/mp4">Your browser does not support embedded video. <a href="HIT/growth_decay.mp4">Download video</a>.</video>
-     <p class="ns-params">Re<sub>λ</sub> ≈ 85 &nbsp; · &nbsp; We ≈ 20 &nbsp; · &nbsp; ρ<sub>r</sub> = 1 &nbsp; · &nbsp; μ<sub>r</sub> = 1</p>
+     <p class="ns-params"><span>Re<sub>λ</sub> ≈ 85</span><span class="ns-param-dot" aria-hidden="true">·</span><span>We ≈ 20</span><span class="ns-param-dot" aria-hidden="true">·</span><span>ρ<sub>r</sub> = 1</span><span class="ns-param-dot" aria-hidden="true">·</span><span>μ<sub>r</sub> = 1</span> <a href="#ref-hit-report" data-cite="hit-report" aria-label="View HIT report reference">Reference</a></p>
     </div>
    </section>
    <section id="ns-references">
     <div class="ns-eyebrow">NEKRS-LS / REFERENCES</div>
     <h1>References</h1>
     <ol class="ns-reference-list">
-     <li>Saini, N., Tomboulides, A., Shaver, D. R., Fischer, P. F., Merzari, E., Obabko, A. V., &amp; Guillen, D. P. (2026). A high order continuous Galerkin spectrally stabilized level-set approach for incompressible two-phase flows. <em>Journal of Computational Physics, 561</em>, Article 114961. <a href="https://doi.org/10.1016/j.jcp.2026.114961" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.jcp.2026.114961</a></li>
-     <li>Saini, N., &amp; Balakrishnan, R. (2026). <em>GPU accelerated spectral element simulations of single and two-phase forced isotropic turbulence</em> (ANL/NSE-26/74). Argonne National Laboratory. <a href="https://doi.org/10.2172/17032787" target="_blank" rel="noopener noreferrer">https://doi.org/10.2172/17032787</a></li>
+     <li id="ref-level-set" data-reference="level-set-paper">Saini, N., Tomboulides, A., Shaver, D. R., Fischer, P. F., Merzari, E., Obabko, A. V., &amp; Guillen, D. P. (2026). A high order continuous Galerkin spectrally stabilized level-set approach for incompressible two-phase flows. <em>Journal of Computational Physics, 561</em>, Article 114961. <a href="https://doi.org/10.1016/j.jcp.2026.114961" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.jcp.2026.114961</a></li>
+     <li id="ref-hit-report" data-reference="hit-report">Saini, N., &amp; Balakrishnan, R. (2026). <em>GPU accelerated spectral element simulations of single and two-phase forced isotropic turbulence</em> (ANL/NSE-26/74). Argonne National Laboratory. <a href="https://doi.org/10.2172/17032787" target="_blank" rel="noopener noreferrer">https://doi.org/10.2172/17032787</a></li>
     </ol>
    </section>
   </main>
@@ -115,9 +128,18 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
  const root = document.getElementById('nekrs-design');
  const buttons = root.querySelectorAll('button[data-view]');
  const sections = root.querySelectorAll('main > section');
+ const references = Array.from(root.querySelectorAll('.ns-reference-list [data-reference]'));
+ root.querySelectorAll('[data-cite]').forEach(link => {
+  const index = references.findIndex(reference => reference.dataset.reference === link.dataset.cite);
+  if (index < 0) return;
+  link.textContent = '[' + (index + 1) + ']';
+  link.setAttribute('href', '#' + references[index].id);
+  link.addEventListener('click', () => show(references[index].id));
+ });
  function show(view) {
   const simulation = root.querySelector('[data-simulation="' + CSS.escape(view) + '"]');
-  const targetView = simulation ? 'visualizations' : view;
+  const reference = references.find(item => item.id === view);
+  const targetView = reference ? 'references' : simulation ? 'visualizations' : view;
   const selected = Array.from(buttons).find(button => button.dataset.view === targetView) || buttons[0];
   buttons.forEach(button => button.setAttribute('aria-pressed', String(button === selected)));
   sections.forEach(section => {
@@ -131,6 +153,8 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
    if (link === simulation) link.setAttribute('aria-current', 'location');
    else link.removeAttribute('aria-current');
   });
+  references.forEach(item => item.classList.toggle('ns-reference-selected', item === reference));
+  if (reference) requestAnimationFrame(() => reference.scrollIntoView({block:'nearest'}));
   if (simulation) requestAnimationFrame(() => document.getElementById(view).scrollIntoView({block:'start'}));
  }
  root.querySelectorAll('[data-simulation]').forEach(link => link.addEventListener('click', () => show(link.dataset.simulation)));
