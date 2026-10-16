@@ -71,15 +71,22 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
 #nekrs-design .ns-reference-list li {scroll-margin-top:24px}
 #nekrs-design .ns-reference-list li.ns-reference-selected {border-left:2px solid #86b7e0;background:#1b2530}
 @media(max-width:450px){#nekrs-design .ns-case h2{font-size:18px}#nekrs-design .ns-params{font-size:16px;gap:6px 12px}}
+#nekrs-design .ns-brand {margin-bottom:32px}
+#nekrs-design .ns-brand-title {font-size:25px;font-weight:500;letter-spacing:1px;margin-bottom:12px;line-height:1.2}
+#nekrs-design .ns-brand-description {font-size:12px;line-height:1.8;color:var(--ns-muted)}
+#nekrs-design .ns-foot {padding-top:28px}
+#nekrs-design .ns-footer-name {font-size:14px;color:var(--ns-muted);margin-bottom:5px}
+@media(max-width:620px){#nekrs-design .ns-brand{margin-bottom:0}#nekrs-design .ns-foot{display:block;margin-top:24px;padding-top:18px;border-top:1px solid var(--ns-line)}}
 </style>
 </head>
 <body>
 <div id="nekrs-design">
  <div class="ns-shell">
   <aside>
-   <div class="ns-name">Nadish Saini</div>
-   <div class="ns-affiliation">Nuclear Engineer<br>Argonne National Laboratory</div>
-   <div class="ns-wordmark">NEKRS-LS</div>
+   <div class="ns-brand">
+    <div class="ns-brand-title">NekRS-LS</div>
+    <div class="ns-brand-description">High-order Continuous Galerkin<br>Conservative Level-Set</div>
+   </div>
    <nav aria-label="Research navigation">
     <ul class="ns-nav-list">
      <li>
@@ -93,7 +100,7 @@ body {margin:0;background:#14181D;color:#E8EDF2;color-scheme:dark}
      <li><a class="ns-source-link" href="https://github.com/nandu90/nekRS-LS"><span aria-hidden="true">&lt;/&gt;</span>Source Code</a></li>
     </ul>
    </nav>
-   <div class="ns-foot">High-order CFD<br>GPU computing · Multiphase flow</div>
+   <div class="ns-foot"><div class="ns-footer-name">Nadish Saini</div><div class="ns-affiliation">Nuclear Engineer<br>Argonne National Laboratory</div></div>
   </aside>
   <main aria-live="polite">
    <section id="ns-visualizations">
